@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Binance Leaderboard Newtab",
   "version": "0.1.0",
-  "description": "My Chrome Extension",
+  "description": "Binance Leaderboard Newtab",
   "icons": {
     "16": "icons/icon_16.png",
     "32": "icons/icon_32.png",
@@ -12,22 +12,12 @@
   "background": {
     "service_worker": "background.js"
   },
-  "action": {
-    "default_title": "Binance Leaderboard Newtab",
-    "default_popup": "popup.html"
-  },
-  "permissions": [
-    "storage"
-  ],
+  "permissions": ["tabs", "contextMenus"],
   "content_scripts": [
     {
-      "matches": [
-        "<all_urls>"
-      ],
-      "run_at": "document_idle",
-      "js": [
-        "contentScript.js"
-      ]
+      "matches": ["<all_urls>"],
+      "run_at": "document_start",
+      "js": ["contentScript.js"]
     }
   ]
 }

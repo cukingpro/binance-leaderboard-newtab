@@ -11,34 +11,55 @@
 // For more information on Content Scripts,
 // See https://developer.chrome.com/extensions/content_scripts
 
-// Log `title` of current active web page
-const pageTitle: string =
-  document.head.getElementsByTagName('title')[0].innerHTML;
-console.log(
-  `Page title is: '${pageTitle}' - evaluated by Chrome extension's 'contentScript.js' file`
-);
+let clickedElement: HTMLElement | null;
 
-// Communicate with background file by sending a message
-chrome.runtime.sendMessage(
-  {
-    type: 'GREETINGS',
-    payload: {
-      message: 'Hello, my name is Con. I am from ContentScript.',
-    },
-  },
-  (response) => {
-    console.log(response.message);
-  }
-);
-
-// Listen for message
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.type === 'COUNT') {
-    console.log(`Current count is ${request.payload.count}`);
-  }
+  switch (request.type) {
+    case 'open_trader_in_new_tab_active':
+    case 'open_trader_in_new_tab':
+      const name = getName();
+      if (name) {
+        sendResponse([name]);
+      }
+      break;
 
-  // Send an empty response
-  // See https://github.com/mozilla/webextension-polyfill/issues/130#issuecomment-531531890
-  sendResponse({});
-  return true;
+    case 'open_all_traders_in_new_tab':
+      const names = getNames();
+      if (names.length) {
+        sendResponse(names);
+      }
+      break;
+
+    default:
+      break;
+  }
 });
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  document.addEventListener(
+    'mousedown',
+    (event) => {
+      clickedElement = event.target as HTMLElement;
+    },
+    false
+  );
+});
+
+function getName(): string | null | undefined {
+  const traderCardElement = clickedElement?.closest('.TraderCard');
+  const nameElement = traderCardElement?.querySelector('.name');
+  const name = nameElement?.textContent;
+  return name;
+}
+
+function getNames(): string[] {
+  const nameElements = document.querySelectorAll('.TraderCard .name');
+  const names = Array.from(nameElements)
+    .map((element) => {
+      return element.textContent;
+    })
+    .filter((value) => {
+      return value !== null;
+    }) as string[];
+  return names;
+}
