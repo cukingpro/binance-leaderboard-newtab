@@ -4,12 +4,16 @@ My Chrome Extension
 
 ## Features
 
-- Feature 1
+1 Feature 1
 - Feature 2
 
 ## Install
 
-[**Chrome** extension]() <!-- TODO: Add chrome extension link inside parenthesis -->
+1. Download the sourcecode
+2. Open chrome://extensions
+3. Check the Developer mode checkbox
+4. Click on the Load unpacked extension button
+5. Select the folder binance-leaderboard-newtab/build
 
 ## Contribution
 
