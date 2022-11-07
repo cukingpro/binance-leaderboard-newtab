@@ -27,6 +27,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
       const names = getNames();
       if (names.length) {
         sendResponse(names);
+        return true;
       }
       break;
 
