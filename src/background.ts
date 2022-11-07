@@ -10,16 +10,25 @@ chrome.runtime.onInstalled.addListener((details) => {
     title: 'Open trader in new tab - Active',
     id: 'open_trader_in_new_tab_active',
     contexts: ['all'],
+    documentUrlPatterns: [
+      'https://www.binance.com/*/futures-activity/leaderboard',
+    ],
   });
   chrome.contextMenus.create({
     title: 'Open trader in new tab',
     id: 'open_trader_in_new_tab',
     contexts: ['all'],
+    documentUrlPatterns: [
+      'https://www.binance.com/*/futures-activity/leaderboard',
+    ],
   });
   chrome.contextMenus.create({
     title: 'Open all traders in new tab',
     id: 'open_all_traders_in_new_tab',
     contexts: ['all'],
+    documentUrlPatterns: [
+      'https://www.binance.com/*/futures-activity/leaderboard',
+    ],
   });
 });
 
