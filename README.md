@@ -1,6 +1,6 @@
 # <img src="public/icons/icon_48.png" width="45" align="left"> Binance Leaderboard Newtab
 
-My Chrome Extension
+Allow opening binance leaderboard user profile in new tab.
 
 ## Features
 
